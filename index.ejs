@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Kapal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(120deg, #2c3e50 0%, #3498db 100%);
+            font-family: 'Poppins', sans-serif;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            margin-top: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            padding: 35px;
+            animation: slideUp 0.8s ease-out;
+            width: 95%;
+            max-width: 1300px;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1::before {
+            content: '⚓';
+            position: absolute;
+            left: 50%;
+            top: -40px;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            color: #3498db;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(-50%); }
+            50% { transform: translateY(-10px) translateX(-50%); }
+        }
+
+        .table-responsive {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .table {
+            margin: 0;
+            background-color: white;
+        }
+
+        .table thead th {
+            background: linear-gradient(90deg, #3498db, #2980b9);
+            color: white;
+            font-size: 1.1rem;
+            padding: 20px;
+            border: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .table tbody tr {
+            transition: all 0.3s ease;
+        }
+
+        .table tbody tr:nth-child(odd) {
+            background-color: #f8f9fa;
+        }
+
+        .table tbody tr:hover {
+            background-color: #e3f2fd;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .table td {
+            padding: 20px;
+            border: none;
+            border-bottom: 1px solid #e9ecef;
+            font-size: 1.1rem;
+            color: #2c3e50;
+        }
+
+        /* Animated highlight effect */
+        @keyframes highlight {
+            0% { background-color: transparent; }
+            50% { background-color: rgba(52, 152, 219, 0.1); }
+            100% { background-color: transparent; }
+        }
+
+        .table tbody tr:hover td {
+            animation: highlight 1s ease-out;
+        }
+
+        /* Card-style info boxes */
+        .info-box {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .info-box:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin-top: 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .table {
+                font-size: 0.9rem;
+            }
+
+            .table thead th {
+                padding: 15px 10px;
+            }
+
+            .table td {
+                padding: 15px 10px;
+            }
+        }
+
+        /* Loading animation */
+        .loading {
+            width: 100%;
+            height: 4px;
+            background-color: #f3f3f3;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            left: -50%;
+            height: 100%;
+            width: 50%;
+            background-color: #3498db;
+            animation: loading 1s linear infinite;
+        }
+
+        @keyframes loading {
+            0% { left: -50%; }
+            100% { left: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="loading"></div>
+        <h1>Data Kapal</h1>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID Kapal</th>
+                        <th>Nama Kapal</th>
+                        <th>Jenis Kapal</th>
+                        <th>Kapasitas Muatan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% kapal.forEach(function(item) { %>
+                        <tr>
+                            <td><%= item.id_kapal %></td>
+                            <td><%= item.nama_kapal %></td>
+                            <td><%= item.jenis_kapal %></td>
+                            <td><%= item.kapasitas_muatan %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
